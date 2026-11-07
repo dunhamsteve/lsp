@@ -2054,7 +2054,9 @@ def GetCodeActionParams(lspserver: dict<any>, fname_arg: string, line1: number,
     },
     end: {
       line: line2 - 1,
-      character: util.GetCharIdxWithCompChar(getline(line2), charcol([line2, '$']) - 1)
+      character: line1 == line2
+	? util.GetCharIdxWithCompChar(getline('.'), charcol('.') - 1)
+	: util.GetCharIdxWithCompChar(getline(line2), charcol([line2, '$']) - 1)
     }
   }
   lspserver.encodeRange(bnr, r)
